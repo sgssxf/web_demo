@@ -1,0 +1,13 @@
+.git
+.idea
+.project
+.settings
+.DS_Store
+id_rsa
+
+*~
+*.diff
+*.patch
+
+node_modules
+npm-debug.log

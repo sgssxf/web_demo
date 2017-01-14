@@ -6,14 +6,23 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-	entry: ['webpack/hot/only-dev-server', path.resolve(__dirname, './app/app.js')],
+	// entry: ['webpack/hot/only-dev-server', './app/lib/tools.js', './app/app.js'],
+	entry: {
+        tip: './app/lib/tip.js',
+        // bundle: ['webpack/hot/only-dev-server', './app/lib/tools.js', './app/app.js']
+        index: ['./app/test.js'],
+        // test: ['./app/test.js']
+    },
 	output: {
 		path: path.resolve(__dirname, './build'),
-		filename: 'bundle.js',
-		libraryTarget: 'umd',
-    	umdNamedDefine: true
+		filename: '[name].js',
+        publicPath: '/build/',
+        // library: 'tip',
+		// libraryTarget: 'umd',
+    	// umdNamedDefine: true
 	},
 	externals: {
+        jquery: "jQuery"
 	},
 	module: {
 	    loaders: [{
@@ -22,11 +31,17 @@ module.exports = {
 	    }, {
 			test: /\.less$/,
 			loader: 'style!css!less'
-	    }, { 
-			test: /\.(png|jpg)$/, 
-			loader: 'url?limit=25000' 
+	    }, {
+			loader: 'url?limit=25000'
 	    }]
 	},
+    devServer: {
+        contentBase: './build/',
+        historyApiFallback: true,
+        noInfo: true,
+        inline: true,
+        hot: true
+    },
 	//其它解决方案配置
     resolve: {
         extensions: ['', '.jsx', '.js']
